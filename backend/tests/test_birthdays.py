@@ -15,3 +15,8 @@ client = TestClient(app)
 def test_smoke_valid_input():
     expected_output = 'Albert Einstein, Benjamin Franklin, Ada Lovelace, Donald Trump, Rowan Atkinson'
     assert print_birthdays_str() == expected_output
+
+def test_error_entry():
+    error_entry = "John Doe"
+    expected_output = 'Sadly, we don\'t have John Doe\'s birthday.'
+    assert return_birthday(error_entry) == expected_output
