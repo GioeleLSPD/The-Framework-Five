@@ -38,17 +38,19 @@ The project follows a simple client-server architecture:
 
 ## Project Structure
 
-•⁠  ⁠⁠ backend/ ⁠: FastAPI backend implementation.
+•⁠  ⁠⁠ `backend/` : FastAPI backend implementation.
     - Dockerfile: Dockerfile for building the backend image.
     - main.py: Main backend application file.
     - requirements.txt: List of Python dependencies for the backend.
-•⁠  ⁠⁠ frontend/ ⁠: Flask frontend implementation.
+    
+•⁠  ⁠⁠ `frontend/` ⁠: Flask frontend implementation.
     - Dockerfile: Dockerfile for building the frontend image.
     - static/: Folder for static files (CSS, JavaScript, etc.).
     - templates/: Folder for HTML templates.
     - main.py: Main frontend application file.
     - requirements.txt: List of Python dependencies for the frontend.
-•⁠  ⁠⁠ docker-compose.yml ⁠: Docker Compose configuration for running both frontend and backend. 
+    
+•⁠  ⁠⁠ `docker-compose.yml` ⁠: Docker Compose configuration for running both frontend and backend. 
 
 ## Prerequisites
 - Docker
