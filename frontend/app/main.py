@@ -1,25 +1,33 @@
 """
 Frontend module for the Flask application.
 
-This module defines a simple Flask application that serves as the frontend for the project.
+This module defines a simple Flask application
+that serves as the frontend for the project.
 """
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import requests  # Import the requests library to make HTTP requests
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, SelectField
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'  # Replace with a secure secret key
+app.config['SECRET_KEY'] = 'your_secret_key'
+# Replace with a secure secret key
 
 # Configuration for the FastAPI backend URL
-FASTAPI_BACKEND_HOST = 'http://backend'  # Replace with the actual URL of your FastAPI backend
+FASTAPI_BACKEND_HOST = 'http://backend'
+# Replace with the actual URL of your FastAPI backend
 BACKEND_URL = f'{FASTAPI_BACKEND_HOST}/query/'
 
 
-class QueryForm(FlaskForm):
-    person_name = StringField('Person Name:')
-    submit = SubmitField('Get Birthday from FastAPI Backend')
+class MoodForm(FlaskForm):
+    mood = SelectField('Choose a Mood', choices=[
+        ('chill', 'Chill'),
+        ('workout', 'Workout'),
+        ('passion', 'Passion'),
+        ('party', 'Party'),
+        ('discover', 'Discover')
+    ])
 
 
 @app.route('/')
@@ -34,6 +42,7 @@ def index():
     date_from_backend = fetch_date_from_backend()
     return render_template('index.html', date_from_backend=date_from_backend)
 
+
 def fetch_date_from_backend():
     """
     Function to fetch the current date from the backend.
@@ -41,7 +50,8 @@ def fetch_date_from_backend():
     Returns:
         str: Current date in ISO format.
     """
-    backend_url = 'http://backend/get-date'  # Adjust the URL based on your backend configuration
+    backend_url = 'http://backend/get-date'
+    # Adjust the URL based on your backend configuration
     try:
         response = requests.get(backend_url)
         response.raise_for_status()  # Raise an HTTPError for bad responses
@@ -51,33 +61,78 @@ def fetch_date_from_backend():
         return 'Date not available'
 
 
-@app.route('/internal', methods=['GET', 'POST'])
-def internal():
-    """
-    Render the internal page.
-
-    Returns:
-        str: Rendered HTML content for the index page.
-    """
-    form = QueryForm()
-    error_message = None  # Initialize error message
+@app.route('/mood', methods=['GET', 'POST'])
+def mood():
+    """Render the mood page"""
+    form = MoodForm()
+    error_message = None
+    songs = None
 
     if form.validate_on_submit():
-        person_name = form.person_name.data
-
-        # Make a GET request to the FastAPI backend
-        fastapi_url = f'{FASTAPI_BACKEND_HOST}/query/{person_name}'
+        """If the form is validated upon submission,
+           retrieve a playlist based on the selected mood
+           from the FastAPI backend"""
+        selected_mood = form.mood.data
+        fastapi_url = f'{FASTAPI_BACKEND_HOST}/mood/{selected_mood}'
         response = requests.get(fastapi_url)
-
         if response.status_code == 200:
-            # Extract and display the result from the FastAPI backend
-            data = response.json()
-            result = data.get('birthday', f'Error: Birthday not available for {person_name}')
-            return render_template('internal.html', form=form, result=result, error_message=error_message)
+            """If the response status is successful (200),
+               extract and display the playlist for the selected mood"""
+            songs = response.json()
         else:
-            error_message = f'Error: Unable to fetch birthday for {person_name} from FastAPI Backend'
+            error_message = f'Error: Failed to retrive playlist for {selected_mood} from FastAPI Backend'
 
-    return render_template('internal.html', form=form, result=None, error_message=error_message)
+    return render_template('mood.html', form=form, songs=songs,
+                           error_message=error_message)
+
+
+@app.route('/info')
+def info():
+    """Fetches and displays various types of information
+       (like 'c_songs', 'genre', 'p_genre') from the FastAPI backend.
+       Renders 'info.html' with the retrieved data or
+       an error message if the data cannot be fetched."""
+    error_message = None
+    data = {}
+
+    info_list = ["c_songs", "genre", "p_genre"]
+
+    backend_url = f'{FASTAPI_BACKEND_HOST}/info/'
+
+    for info in info_list:
+        response = requests.get(backend_url + info)
+        if response.status_code == 200:
+            data[info] = response.json()
+        else:
+            error_message = f"Error: Unable to retrieve {info} from the backend."
+
+    return render_template('info.html', data=data, error_message=error_message)
+
+
+@app.route('/artists', methods=['GET'])
+def get_artists_by_letter():
+    """Retrieves a list of artists from the FastAPI backend
+       filtered by the starting letter provided in the query parameter.
+       Renders 'artists.html' with the filtered list of artists or
+       an error message if no artists are found."""
+    letter = request.args.get('letter', '#')
+    letter = request.args.get('letter', '#')
+    fastapi_url = f'{FASTAPI_BACKEND_HOST}/info/a_songs'
+    response = requests.get(fastapi_url)
+    if response.status_code == 200:
+        all_artists = response.json()
+        filtered_artists = {
+            artist: count for artist, count in all_artists.items()
+            if artist.startswith(letter) or
+            (letter == "#" and not artist[0].isalpha())
+        }
+        return render_template('artists.html',
+                               artists=filtered_artists,
+                               selected_letter=letter)
+    else:
+        return render_template('artists.html', artists={},
+                               selected_letter=letter,
+                               error="Artists not found")
 
 
 if __name__ == '__main__':

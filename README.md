@@ -96,7 +96,6 @@ Feature 3: Artits present in the dataset organised in alphabetical order.
 
 Feature 4: The user can access to the function "discover", where he can obtain as an output a completely random song from our csv. The aim of this part of our project was allowing users to discover new tunes the may like and deepen their knowledge of music. 
 
-
 # **We ask the user to:** 
 
 Feature 1: make the system generate the perfect playlist based on the mood of the user 
@@ -104,6 +103,7 @@ Feature 1: make the system generate the perfect playlist based on the mood of th
 Feature 2: know all the characteristics of the generated playlist 
 
 Feature 3: click on the initial letter of an artist in order to know the number of songs of the artist presnet in our csv. 
+
 
 # **Dataset**
 
