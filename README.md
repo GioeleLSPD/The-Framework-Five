@@ -50,7 +50,7 @@ The project follows a simple client-server architecture:
 •⁠  ⁠⁠ `frontend/` ⁠: Flask frontend implementation.
 - Dockerfile: Dockerfile for building the frontend image.
 - static/: Folder for static files (CSS, JavaScript, etc.).
-- templates/: Folder for HTML templates.
+- templates/: Folder for HTML templates (base, index, internal).
 - main.py: Main frontend application file.
 - requirements.txt: List of Python dependencies for the frontend.
     
@@ -58,7 +58,7 @@ The project follows a simple client-server architecture:
 
 ## Prerequisites
 - Docker
-- visual Studio Code
+- Visual Studio Code
 - CSV: can find them on GitHub
 
 ## Usage 
