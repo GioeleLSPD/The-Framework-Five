@@ -1,18 +1,18 @@
-**README** 
+# **README** 
 
-**Group:** The Framework Five 
+***Group: The Framework Five***
 
 **Members:** 
 
-Gioele Squizzato, 889040; 
+- Gioele Squizzato, 889040; 
 
-John Molfino, 889965; 
+- John Molfino, 889965; 
 
-Matilde Farinelli, 888897; 
+- Matilde Farinelli, 888897; 
 
-Umberto Bolzoni, 891140; 
+- Umberto Bolzoni, 891140; 
 
-Sofia Alajmo, 888473.
+- Sofia Alajmo, 888473.
 
 
 # **Project Name:** Moody Tunes 
