@@ -29,7 +29,7 @@ The project follows a simple client-server architecture:
  2.⁠ ⁠*Backend (FastAPI):*
    - Represents the server or backend of the application.
    - Built with FastAPI, a modern web framework for building APIs with Python.
-   - Handles requests from the frontend, including querying birthdays and providing the current date.
+   - Handles requests from the frontend, including querying playlists, information and providing the current mood.
 
  3.⁠ ⁠*Docker Compose:*
    - Orchestrates the deployment of both frontend and backend as separate containers.
@@ -39,16 +39,20 @@ The project follows a simple client-server architecture:
 ## Project Structure
 
 •⁠  ⁠⁠ `backend/` : FastAPI backend implementation.
-    - Dockerfile: Dockerfile for building the backend image.
-    - main.py: Main backend application file.
-    - requirements.txt: List of Python dependencies for the backend.
+- Dockerfile: Dockerfile for building the backend image.
+- *main.py*: Main backend application file.
+- *mood.py*: defines the characteristics requirement of each song to assign it to a specific mood
+- *info.py*: define the popularity of each music genre and songs per genre, number of songs attributable to a single artist, overall songs' number thorugh functions.
+- *spotify_songs.csv*
+- tests: test_mood.py, test_info.py, used to test our backend functions. 
+- requirements.txt: List of Python dependencies for the backend.
     
 •⁠  ⁠⁠ `frontend/` ⁠: Flask frontend implementation.
-    - Dockerfile: Dockerfile for building the frontend image.
-    - static/: Folder for static files (CSS, JavaScript, etc.).
-    - templates/: Folder for HTML templates.
-    - main.py: Main frontend application file.
-    - requirements.txt: List of Python dependencies for the frontend.
+- Dockerfile: Dockerfile for building the frontend image.
+- static/: Folder for static files (CSS, JavaScript, etc.).
+- templates/: Folder for HTML templates.
+- main.py: Main frontend application file.
+- requirements.txt: List of Python dependencies for the frontend.
     
 •⁠  ⁠⁠ `docker-compose.yml` ⁠: Docker Compose configuration for running both frontend and backend. 
 
@@ -63,7 +67,7 @@ The project follows a simple client-server architecture:
 
    ```bash
     git clone https://github.com/GioeleLSPD/The-Framework-Five
-    cd swdevel-lab-hfarm
+    cd The-Framework-Five
    ```
 
  2.⁠ ⁠Build and run the Docker containers:
