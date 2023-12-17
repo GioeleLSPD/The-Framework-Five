@@ -104,6 +104,7 @@ Feature 2: know all the characteristics of the generated playlist
 
 Feature 3: click on the initial letter of an artist in order to know the number of songs of the artist presnet in our csv. 
 
+Feature 4: obtain a random song to discover 
 
 # **Dataset**
 
