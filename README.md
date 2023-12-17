@@ -60,7 +60,7 @@ The project follows a simple client-server architecture:
  1.⁠ ⁠Clone the repository and navigate in the directory:
 
    ```bash
-    git clone REPO_URL
+    git clone https://github.com/GioeleLSPD/The-Framework-Five
     cd swdevel-lab-hfarm
    ```
 
@@ -80,13 +80,15 @@ This will start both the frontend and backend containers.
 
 # **What does Moody Tunes do?** 
 
-The call to action for users is selecting their current mood from the available ones in the search bar. We have five possible moods which are: Chill, workout, passion, party and random. Our software will then generate a music playlist accordingly by selecting them from a 30,000 database of songs. Each playlist has its own ranges of values over 7 features, danceability, energy, loudness, speechless, instrumentalness, valence and tempo.
+Feature 1: The call to action for users is selecting their current mood from the available ones in the search bar. We have five possible moods which are: Chill, workout, passion, party and random. Our software will then generate a music playlist accordingly by selecting them from a 30,000 database of songs. Each playlist has its own ranges of values over 7 features, danceability, energy, loudness, speechless, instrumentalness, valence and tempo.
 
 Our goal was to allow everyone to find the correct song based on their mood. 
 
 Feature 2: By analysing our dataset we were able to outline its characteristics. We selected: song number for each genre, number of songs of each artist, total number of songs present in the dataset. 
 
 Feature 3: Artits present in the dataset organised in alphabetical order. 
+
+Feature 4: The user can access to the function "discover", where he can obtain as an output a completely random song from our csv. The aim of this part of our project was allowing users to discover new tunes the may like and deepen their knowledge of music. 
 
 
 # **We ask the user to:** 
