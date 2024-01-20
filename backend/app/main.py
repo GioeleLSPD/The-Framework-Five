@@ -17,7 +17,7 @@ from .mymodules.mood import (find_songs_for_party, find_songs_for_chill,
                              discover_random_song)
 
 from .mymodules.info import (count_songs, artist_songs,
-                             get_song_count_by_genre, genre_popularity)
+                             get_song_count_by_genre, genre_popularity, get_songs_by_artist)
 
 app = FastAPI()
 
@@ -56,3 +56,12 @@ def get_info(info_g: str):
         return result
     else:
         raise HTTPException(status_code=404, detail="Information not found")
+
+@app.get('/songs/{artist_name}')
+def artist_song_list(artist_name: str):
+    """Retrieves the list of songs for a given artist."""
+    songs_list = get_songs_by_artist(artist_name)
+    if songs_list:
+        return songs_list
+    else:
+        raise HTTPException(status_code=404, detail="Artist not found")
