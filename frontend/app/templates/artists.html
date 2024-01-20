@@ -107,7 +107,7 @@
             {% for artist, count in artists.items() %}
             <tr>
                 <td>{{ artist }}</td>
-                <td>{{ count }}</td>
+                <td><a href="{{ url_for('artist_songs_page', artist_name=artist) }}">{{ count }}</a></td>
             </tr>
             {% endfor %}
         </table>
