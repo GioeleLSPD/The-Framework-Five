@@ -134,6 +134,17 @@ def get_artists_by_letter():
                                selected_letter=letter,
                                error="Artists not found")
 
+@app.route('/artist_songs/<artist_name>')
+def artist_songs_page(artist_name):
+    """Renders a page with a list of songs for a specific artist."""
+    fastapi_url = f'{FASTAPI_BACKEND_HOST}/songs/{artist_name}'
+    response = requests.get(fastapi_url)
+    if response.status_code == 200:
+        songs = response.json()
+        return render_template('songs_for_artist.html', artist=artist_name, songs=songs)
+    else:
+        return render_template('songs_for_artist.html', artist=artist_name, songs=[], error="Songs not found")
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
