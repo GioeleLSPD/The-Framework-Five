@@ -33,3 +33,9 @@ def count_songs():
     """Return a dictionary with the total count of songs in the dataset"""
     total_songs_count = len(spotify_songs)
     return total_songs_count
+
+def get_songs_by_artist(artist_name):
+    """Return a list of songs by a specific artist."""
+    artist_songs = spotify_songs[spotify_songs['track_artist'] == artist_name]
+    songs_list = artist_songs['track_name'].tolist()
+    return songs_list
