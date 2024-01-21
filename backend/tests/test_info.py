@@ -72,13 +72,17 @@ def test_get_info_valid_category():
     # Further assertions can be made based on the expected response format and content
 
 
-def test_get_songs_by_artist():
-    artist_name = 'Avicii'
-    result = get_songs_by_artist(artist_name)
+def test_artist_song_list_valid_artist():
+    """Test artist_song_list with a valid artist name."""
+    valid_artist = 'Avicii'
+    response = client.get(f"/songs/{valid_artist}")
+    assert response.status_code == 200
+    result = get_songs_by_artist(valid_artist)
     assert isinstance(result, list)
     for song in result:
-        assert song in spotify_songs[spotify_songs['track_artist'] == artist_name]['track_name'].tolist()
-
+        assert song in spotify_songs[spotify_songs['track_artist'] == valid_artist]['track_name'].tolist()
+    # Additional assertions based on the expected output
+    
 
 def test_artist_song_list_invalid_artist():
     """Test artist_song_list with an invalid artist name."""
