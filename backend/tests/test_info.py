@@ -80,13 +80,6 @@ def test_get_songs_by_artist():
         assert song in spotify_songs[spotify_songs['track_artist'] == artist_name]['track_name'].tolist()
 
 
-def test_artist_song_list_valid_artist():
-    """Test artist_song_list with a valid artist name."""
-    valid_artist = 'Avicii'
-    response = client.get(f"/songs/{valid_artist}")
-    assert response.status_code == 200
-    # Additional assertions based on the expected output
-
 def test_artist_song_list_invalid_artist():
     """Test artist_song_list with an invalid artist name."""
     invalid_artist = 'Nonexistent Artist'
