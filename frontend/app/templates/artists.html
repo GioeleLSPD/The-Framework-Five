@@ -80,6 +80,19 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+        .song-count-link {
+            color: #0000FF;
+            text-decoration: none;
+        }
+        .song-count-link:link, .song-count-link:visited, .song-count-link:hover, .song-count-link:active {
+            color: #0000FF;
+        }
+        .song-count-link:hover {
+            text-decoration: underline;
+        }
+        .song-count-link:active {
+            color: #0000FF;
+        }
     </style>
 </head>
 <body>
@@ -107,7 +120,7 @@
             {% for artist, count in artists.items() %}
             <tr>
                 <td>{{ artist }}</td>
-                <td><a href="{{ url_for('artist_songs_page', artist_name=artist) }}">{{ count }}</a></td>
+                <td><a class="song-count-link" href="{{ url_for('artist_songs_page', artist_name=artist) }}">{{ count }}</a></td>
             </tr>
             {% endfor %}
         </table>
