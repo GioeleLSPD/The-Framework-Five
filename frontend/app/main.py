@@ -66,9 +66,11 @@ def mood():
     """
     Render the mood page.
 
-    This route handler renders the mood page, allowing users to select a mood
-    using a form. If the form is validated upon submission, it retrieves a playlist
-    based on the selected mood from the FastAPI backend and displays the playlist.
+    This route handler renders the mood page, allowing users to select
+    a mood using a form. If the form is validated upon 
+    submission, it retrieves a playlist based
+    on the selected mood from the
+    FastAPI backend and displays the playlist.
 
     Returns:
         str: Rendered HTML content for the mood page."""
@@ -92,11 +94,13 @@ def mood():
 @app.route('/info')
 def info():
     """
-    Fetches and displays selected types of information from the FastAPI backend.
+    Fetches and displays selected types of information from
+    the FastAPI backend.
 
-    This route handler fetches information types 'c_songs', 'genre', and 'p_genre'
-    from the FastAPI backend. It renders 'info.html' with the retrieved data or an error
-    message if the data cannot be fetched.
+    This route handler fetches information types 'c_songs',
+    'genre', and 'p_genre' from the FastAPI backend. It renders 'info.html'
+    with the retrieved data or an error message
+    if the data cannot be fetched.
 
     Returns:
         str: Rendered HTML content for the information page."""
@@ -121,11 +125,14 @@ def info():
 def get_artists_by_letter():
     """
     Retrieves a list of artists from the FastAPI backend
-    filtered by the starting letter provided in the query parameter.
+    filtered by the starting letter provided in the query
+    parameter.
 
-    This route handler retrieves a list of artists from the FastAPI backend
-    and filters them based on the starting letter provided in the 'letter' query parameter.
-    It renders 'artists.html' with the filtered list of artists or an error message if no artists are found.
+    This route handler retrieves a list of artists from the 
+    FastAPI backend and filters them based on the starting
+    letter provided in the 'letter' query parameter.
+    It renders 'artists.html' with the filtered list of
+    artists or an error message if no artists are found.
 
     Returns:
         str: Rendered HTML content for the artists page."""
@@ -153,11 +160,14 @@ def artist_songs_page(artist_name):
     """
     Renders a page with a list of songs for a specific artist.
 
-    This route handler retrieves a list of songs for a specific artist from the FastAPI backend
-    and renders 'songs_for_artist.html' with the artist's name and the list of songs or an error message if no songs are found.
+    This route handler retrieves a list of songs for a
+    specific artist from the FastAPI backend
+    and renders 'songs_for_artist.html' with the artist's
+    name and the list of songs or an error message if no songs are found.
 
     Args:
-        artist_name (str): The name of the artist for whom the song list is to be displayed.
+        artist_name (str): The name of the artist for whom
+        the song list is to be displayed.
 
     Returns:
         str: Rendered HTML content for the artist's songs page."""
