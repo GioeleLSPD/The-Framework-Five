@@ -3,13 +3,13 @@ import sys
 import pandas as pd
 import random
 from fastapi.testclient import TestClient
-from app.main import app
-from app.mymodules.mood import (find_songs_for_party, find_songs_for_chill,
-                                find_songs_for_workout, find_songs_for_passion)
 
 sys.path.insert(0, os.path.abspath(os.path.join(
                 os.path.dirname(__file__), '..')))
 
+from app.main import app
+from app.mymodules.mood import (find_songs_for_party, find_songs_for_chill,
+                                find_songs_for_workout, find_songs_for_passion)
 
 spotify_songs = pd.read_csv('/app/app/spotify_songs.csv')
 

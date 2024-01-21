@@ -2,14 +2,14 @@ import os
 import sys
 import pandas as pd
 from fastapi.testclient import TestClient
-from app.main import app
-from app.mymodules.info import (genre_popularity, get_song_count_by_genre,
-                                count_songs, artist_songs)
 
 
 sys.path.insert(0, os.path.abspath(os.path.join(
                 os.path.dirname(__file__), '..')))
 
+from app.main import app
+from app.mymodules.info import (genre_popularity, get_song_count_by_genre,
+                                count_songs, artist_songs)
 
 spotify_songs = pd.read_csv('/app/app/spotify_songs.csv')
 
