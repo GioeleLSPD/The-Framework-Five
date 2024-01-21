@@ -125,3 +125,10 @@ def test_find_songs_for_passion_values():
     assert 0.0 <= song_in_dataset['instrumentalness'] <= 0.5
     assert 0.5 <= song_in_dataset['valence'] <= 1.0
     assert 80 <= song_in_dataset['tempo'] <= 120
+
+
+def test_get_mood_invalid_category():
+    """Test the get_mood function with an invalid category to ensure it raises a 404 error."""
+    response = client.get("/mood/invalid_category")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Mood not found"}
