@@ -58,14 +58,16 @@ def test_artist_songs():
 
 
 def test_get_info_invalid_category():
-    """Test the get_info function with an invalid category to ensure it raises a 404 error."""
+    """Test the get_info function with an invalid
+    category to ensure it raises a 404 error."""
     response = client.get("/info/invalid_category")
     assert response.status_code == 404
     assert response.json() == {"detail": "Information not found"}
 
 
 def test_get_info_valid_category():
-    """Test the get_info function with a valid category to ensure it returns the correct response."""
+    """Test the get_info function with a valid
+    category to ensure it returns the correct response."""
     valid_category = "genre"  # Assuming "genre" is a valid category in info_functions
     response = client.get(f"/info/{valid_category}")
     assert response.status_code == 200
