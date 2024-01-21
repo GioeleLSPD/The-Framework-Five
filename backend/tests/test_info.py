@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(
 
 from app.main import app
 from app.mymodules.info import (genre_popularity, get_song_count_by_genre,
-                                count_songs, artist_songs)
+                                count_songs, artist_songs, get_songs_by_artist)
 
 spotify_songs = pd.read_csv('/app/app/spotify_songs.csv')
 
@@ -40,7 +40,7 @@ def test_get_song_count_by_genre():
 def test_count_songs():
     """Test the count_songs function to ensure it returns an integer
     count of all songs in the dataset."""
-    result = count_songs('path_to_your_csv')
+    result = count_songs()
     assert isinstance(result, int)
     assert result == len(spotify_songs)
 
@@ -55,3 +55,41 @@ def test_artist_songs():
     for artist, count in result.items():
         assert isinstance(count, int)
         assert count == (spotify_songs['track_artist'] == artist).sum()
+
+
+def test_get_info_invalid_category():
+    """Test the get_info function with an invalid category to ensure it raises a 404 error."""
+    response = client.get("/info/invalid_category")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Information not found"}
+
+
+def test_get_info_valid_category():
+    """Test the get_info function with a valid category to ensure it returns the correct response."""
+    valid_category = "genre"  # Assuming "genre" is a valid category in info_functions
+    response = client.get(f"/info/{valid_category}")
+    assert response.status_code == 200
+    # Further assertions can be made based on the expected response format and content
+
+
+def test_get_songs_by_artist():
+    artist_name = 'Avicii'
+    result = get_songs_by_artist(artist_name)
+    assert isinstance(result, list)
+    for song in result:
+        assert song in spotify_songs[spotify_songs['track_artist'] == artist_name]['track_name'].tolist()
+
+
+def test_artist_song_list_valid_artist():
+    """Test artist_song_list with a valid artist name."""
+    valid_artist = 'Avicii'
+    response = client.get(f"/songs/{valid_artist}")
+    assert response.status_code == 200
+    # Additional assertions based on the expected output
+
+def test_artist_song_list_invalid_artist():
+    """Test artist_song_list with an invalid artist name."""
+    invalid_artist = 'Nonexistent Artist'
+    response = client.get(f"/songs/{invalid_artist}")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Artist not found"}
