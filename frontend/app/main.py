@@ -63,21 +63,24 @@ def fetch_date_from_backend():
 
 @app.route('/mood', methods=['GET', 'POST'])
 def mood():
-    """Render the mood page"""
+    """
+    Render the mood page.
+
+    This route handler renders the mood page, allowing users to select a mood
+    using a form. If the form is validated upon submission, it retrieves a playlist
+    based on the selected mood from the FastAPI backend and displays the playlist.
+
+    Returns:
+        str: Rendered HTML content for the mood page."""
     form = MoodForm()
     error_message = None
     songs = None
 
     if form.validate_on_submit():
-        """If the form is validated upon submission,
-           retrieve a playlist based on the selected mood
-           from the FastAPI backend"""
         selected_mood = form.mood.data
         fastapi_url = f'{FASTAPI_BACKEND_HOST}/mood/{selected_mood}'
         response = requests.get(fastapi_url)
         if response.status_code == 200:
-            """If the response status is successful (200),
-               extract and display the playlist for the selected mood"""
             songs = response.json()
         else:
             error_message = f'Error: Failed to retrive playlist for {selected_mood} from FastAPI Backend'
@@ -88,10 +91,15 @@ def mood():
 
 @app.route('/info')
 def info():
-    """Fetches and displays various types of information
-       (like 'c_songs', 'genre', 'p_genre') from the FastAPI backend.
-       Renders 'info.html' with the retrieved data or
-       an error message if the data cannot be fetched."""
+    """
+    Fetches and displays selected types of information from the FastAPI backend.
+
+    This route handler fetches information types 'c_songs', 'genre', and 'p_genre'
+    from the FastAPI backend. It renders 'info.html' with the retrieved data or an error
+    message if the data cannot be fetched.
+
+    Returns:
+        str: Rendered HTML content for the information page."""
     error_message = None
     data = {}
 
@@ -111,10 +119,16 @@ def info():
 
 @app.route('/artists', methods=['GET'])
 def get_artists_by_letter():
-    """Retrieves a list of artists from the FastAPI backend
-       filtered by the starting letter provided in the query parameter.
-       Renders 'artists.html' with the filtered list of artists or
-       an error message if no artists are found."""
+    """
+    Retrieves a list of artists from the FastAPI backend
+    filtered by the starting letter provided in the query parameter.
+
+    This route handler retrieves a list of artists from the FastAPI backend
+    and filters them based on the starting letter provided in the 'letter' query parameter.
+    It renders 'artists.html' with the filtered list of artists or an error message if no artists are found.
+
+    Returns:
+        str: Rendered HTML content for the artists page."""
     letter = request.args.get('letter', '#')
     letter = request.args.get('letter', '#')
     fastapi_url = f'{FASTAPI_BACKEND_HOST}/info/a_songs'
@@ -136,7 +150,17 @@ def get_artists_by_letter():
 
 @app.route('/artist_songs/<artist_name>')
 def artist_songs_page(artist_name):
-    """Renders a page with a list of songs for a specific artist."""
+    """
+    Renders a page with a list of songs for a specific artist.
+
+    This route handler retrieves a list of songs for a specific artist from the FastAPI backend
+    and renders 'songs_for_artist.html' with the artist's name and the list of songs or an error message if no songs are found.
+
+    Args:
+        artist_name (str): The name of the artist for whom the song list is to be displayed.
+
+    Returns:
+        str: Rendered HTML content for the artist's songs page."""
     fastapi_url = f'{FASTAPI_BACKEND_HOST}/songs/{artist_name}'
     response = requests.get(fastapi_url)
     if response.status_code == 200:
